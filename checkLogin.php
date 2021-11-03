@@ -15,13 +15,13 @@ include_once("mysql_conn.php");
 $qry = "SELECT ShopperID, Name, Email, Password FROM Shopper WHERE Email=? AND Password=?";
 
 $stmt = $conn->prepare($qry);
+
 // "ssssss" - 6 string parameters
 $stmt->bind_param("ss", $email, $password);
 
 // To Do 1 (Practical 2): Validate login credentials with database
 
 if ($stmt->execute()) {  // SQL statement executed successfully
-	// Save user's info in session variables
 
 	while ($row =  $stmt->get_result()->fetch_assoc()) {
 
