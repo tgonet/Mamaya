@@ -34,7 +34,7 @@ if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") {
 	// contains the keyword entered by shopper, and display them in a table.
     $keyword = $_GET["keywords"];
 
-    $qry = "SELECT * FROM Product WHERE ProductTitle Like '%$keyword%' OR ProductDesc Like '%$keyword%'";
+    $qry = "SELECT ProductID, ProductTitle FROM Product WHERE ProductTitle Like '%$keyword%' OR ProductDesc Like '%$keyword%' ORDER BY ProductTitle";
 
     $result = $conn->query($qry);
     
