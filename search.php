@@ -1,6 +1,9 @@
 <?php 
 session_start(); // Detect the current session
 include("header.php"); // Include the Page Layout header
+
+// Include the PHP file that establishes database connection handle: $conn
+include_once("mysql_conn.php");
 ?>
 
 <!-- HTML Form to collect search keyword and submit it to the same page in server -->
@@ -19,7 +22,7 @@ include("header.php"); // Include the Page Layout header
                    type="search" />
         </div>
         <div class="col-sm-3">
-            <button type="submit">Search</button>
+            <button type="submit" class='btn btn-primary'>Search</button>
         </div>
     </div>  <!-- End of 2nd row -->
 </form>
@@ -29,6 +32,19 @@ include("header.php"); // Include the Page Layout header
 if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") {
     // To Do (DIY): Retrieve list of product records with "ProductTitle" 
 	// contains the keyword entered by shopper, and display them in a table.
+    $keyword = $_GET["keywords"];
+
+    $qry = "SELECT * FROM Product WHERE ProductTitle Like '%$keyword%' OR ProductDesc Like '%$keyword%'";
+
+    $result = $conn->query($qry);
+    
+    echo "<p style='font-weight:bold'>Search results for $keyword</p>";
+
+    while($row = $result->fetch_array()) {
+        $link = "productDetails.php?pid=$row[ProductID]";
+        echo "<a href='$link'>$row[ProductTitle]</a><br/ >";
+    }
+
 	
 	// To Do (DIY): End of Code
 }

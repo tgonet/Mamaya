@@ -28,7 +28,7 @@ while ($row = $result->fetch_array()){
     //               display category's description in a new paragraph
 
     $catname = urlencode($row["CatName"]);
-    $catproduct = "catProduct.php?cid=$row[CategoryID]&catName=$catName";
+    $catproduct = "catProduct.php?cid=$row[CategoryID]&catName=$catname";
     echo "<div class='col-8'>"; // 67% of row width
     echo "<p><a href=$catproduct>$row[CatName]</a></p>";
     echo "$row[CatDesc]";

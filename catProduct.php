@@ -25,7 +25,7 @@ $qry = "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity
 $stmt = $conn->prepare($qry);
 $stmt->bind_param("i", $cid); // "i" - integer
 $stmt->execute();
-$result = $stmt->get_results();
+$result = $stmt->get_result();
 $stmt->close();
 
 // Display each category in a row
@@ -44,7 +44,7 @@ while ($row = $result->fetch_array()){
     echo "</div>";
 
     // Right column - display the category's image
-    $img = "./Images/category/$row[ProductImage]";
+    $img = "./Images/products/$row[ProductImage]";
     echo "<div class='col-4'>"; //33% of row width
     echo "<img src='$img' />";
     echo "</div>";
