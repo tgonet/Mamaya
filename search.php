@@ -32,13 +32,20 @@ include_once("mysql_conn.php");
 if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") {
     // To Do (DIY): Retrieve list of product records with "ProductTitle" 
 	// contains the keyword entered by shopper, and display them in a table.
-    $keyword = $_GET["keywords"];
+    $keyword = "%{$_GET['keywords']}%"; 
+    $keywords = $_GET['keywords'];
 
-    $qry = "SELECT ProductID, ProductTitle FROM Product WHERE ProductTitle Like '%$keyword%' OR ProductDesc Like '%$keyword%' ORDER BY ProductTitle";
+    $qry = "SELECT ProductID, ProductTitle FROM Product WHERE ProductTitle Like ? OR ProductDesc Like ? ORDER BY ProductTitle";
 
-    $result = $conn->query($qry);
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("ss", $keyword, $keyword); 	
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    //$result = $conn->query($qry);
     
-    echo "<p style='font-weight:bold'>Search results for $keyword</p>";
+    echo "<p style='font-weight:bold'>Search results for $keywords</p>";
 
     while($row = $result->fetch_array()) {
         $link = "productDetails.php?pid=$row[ProductID]";
