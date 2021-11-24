@@ -19,7 +19,9 @@ if(isset($_SESSION["ShopperName"])) {
 	
 	//To Do 2 (Practical 4) - 
     //Display number of item in cart
-	
+	if (isset($_SESSION["NumCartItem"])){
+        $content1 .= ", $_SESSION[NumCartItem] items(s) in shopping cart";
+    }
 }
 ?>
 <!-- To Do 3 (Practical 1) - 
