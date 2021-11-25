@@ -111,6 +111,17 @@ function removeItem() {
 	// TO DO 3
 	// Write code to implement: if a user clicks on "Remove" button, update the database
 	// and also the session variable for counting number of items in shopping cart.
-	
+	$cartid = $_SESSION["Cart"];
+	$pid = $_POST["product_id"];
+	include_once("mysql_conn.php");
+	$qry = "DELETE FROM ShopCartItem WHERE ShopCartID=? AND ProductID=?";
+	$stmt = $conn->prepare($qry);
+	$stmt->bind_param("ii", $cartid, $pid);
+	$stmt->execute();
+	$stmt->close();
+	$conn->close();
+	$_SESSION["NumCartItem"] -= 1;
+	header ("Location: shoppingCart.php");
+	exit;
 }		
 ?>

@@ -70,9 +70,9 @@ if (isset($_SESSION["Cart"])) {
 			$formattedTotal = number_format($row["Total"], 2);
 			echo "<td>$formattedTotal</td>";
 			echo "<td>"; // Column for remove item from shopping cart
-			echo "<form action='cartFunction.php' method='post'>";
-			echo "<input type='hidden' name'action' value = 'remove' />";
-			echo "<input type='hidden' name='product_id value='$row[ProductID]' />";
+			echo "<form action='cartFunctions.php' method='post'>";
+			echo "<input type='hidden' name='action' value='remove' />";
+			echo "<input type='hidden' name='product_id' value='$row[ProductID]' />";
 			echo "<input type='image' src='images/trash-can.png' title='Remove Item'/>";
 			echo "</form>";
 			echo "</td>";
