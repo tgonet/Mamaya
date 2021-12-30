@@ -35,12 +35,13 @@ if(isset($_SESSION["ShopperName"])) {
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
+    
 </nav>
 <!-- To Do 4 (Practical 1) - 
      Define a collapsible navbar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-custom">
     <!--Collapsible part of navbar -->
-    <div class="collapse navbar-collapse" id="collapseibleNavbar">
+    <div class="collapse navbar-collapse" id="#collapsibleNavbar">
         <!-- Left-justified menu items -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">

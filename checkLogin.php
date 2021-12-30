@@ -23,7 +23,7 @@ $stmt->bind_param("ss", $email, $password);
 
 if ($stmt->execute()) {  // SQL statement executed successfully
 
-	while ($row =  $stmt->get_result()->fetch_assoc()) {
+	while ($row =  $stmt->get_result()->fetch_array()) {
 
 		// Save user's info in session variables
 		$_SESSION["ShopperID"] = $row["ShopperID"];

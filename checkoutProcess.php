@@ -8,6 +8,28 @@ if($_POST) //Post Data received from Shopping cart page.
 {
 	// To Do 6 (DIY): Check to ensure each product item saved in the associative
 	//                array is not out of stock
+	$qry = "SELECT * FROM ShopCartItem WHERE ShopCartID=?";
+		$stmt = $conn->prepare($qry);
+		$stmt->bind_param("i", $_SESSION["Cart"]);	// "i" - integer
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$stmt->close();
+		while($item = $result->fetch_array()){
+			$qry2 = "SELECT * FROM product WHERE ProductID=?";
+			$stmt2 = $conn->prepare($qry2);
+			$stmt2->bind_param("i", $item["ProductID"]);	// "i" - integer
+			$stmt2->execute();
+			$result2 = $stmt2->get_result()->fetch_array();
+			$stmt2->close();	
+
+			$quantity = $result2["Quantity"] - $item["Quantity"];
+			if($quantity < 0){
+				echo "Product $item[ProductID] : $item[Name] is out of stock!<br/>";
+				echo "Please return to shopping cart to amend your purchase.<br/>";
+				include("footer.php");
+				exit;
+			}
+		}
 	
 	// End of To Do 6
 	
@@ -113,6 +135,28 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 	{
 		// To Do 5 (DIY): Update stock inventory in product table 
 		//                after successful checkout
+		$qry = "SELECT * FROM ShopCartItem WHERE ShopCartID=?";
+		$stmt = $conn->prepare($qry);
+		$stmt->bind_param("i", $_SESSION["Cart"]);	// "i" - integer
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$stmt->close();
+		while($item = $result->fetch_array()){
+			$qry2 = "SELECT * FROM product WHERE ProductID=?";
+			$stmt2 = $conn->prepare($qry2);
+			$stmt2->bind_param("i", $item["ProductID"]);	// "i" - integer
+			$stmt2->execute();
+			$result2 = $stmt2->get_result()->fetch_array();
+			$stmt2->close();	
+
+			$quantity = $result2["Quantity"] - $item["Quantity"];
+
+			$qry3 = "UPDATE product SET Quantity=? WHERE ProductID=?";
+			$stmt3 = $conn->prepare($qry3);
+			$stmt3->bind_param("ii", $quantity, $item["ProductID"]);	// "i" - integer
+			$stmt3->execute();
+			$stmt3->close();
+		}
 		
 		// End of To Do 5
 	
