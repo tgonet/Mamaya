@@ -9,6 +9,9 @@ $phone = $_POST["phone"];
 $email = $_POST["email"];
 $password = $_POST["password"];
 
+// Create a poassword hash using the default bcrypt algorithm
+$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
 // Include the PHP file that establishes database connection handle: $conn
 include_once("mysql_conn.php");
 

@@ -151,7 +151,7 @@ if(isset($_GET["token"]) && isset($_GET["PayerID"]))
 
 			$quantity = $result2["Quantity"] - $item["Quantity"];
 
-			$qry3 = "UPDATE product SET Quantity=? WHERE ProductID=?";
+			$qry3 = "UPDATE product SET Quantity=Quantity - ? WHERE ProductID=?";
 			$stmt3 = $conn->prepare($qry3);
 			$stmt3->bind_param("ii", $quantity, $item["ProductID"]);	// "i" - integer
 			$stmt3->execute();
